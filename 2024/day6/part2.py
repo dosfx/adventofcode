@@ -46,10 +46,3 @@ for (x, y) in set([(x, y) for (x, y, _) in possible_extras]):
     if path((x, y))[0]:
         count += 1
 print(count)
-
-# 6 7
-# 7 9
-# 3 6
-# 7 7
-# 3 8
-# 1 8
