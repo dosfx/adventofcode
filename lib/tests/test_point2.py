@@ -1,10 +1,10 @@
-import unittest
+from unittest import TestCase
 
 from aoc_lib._point2 import Point2
 
 
 
-class TestPoint2(unittest.TestCase):
+class TestPoint2(TestCase):
     def test_point2(self) -> None:
         p = Point2(1, 2)
         self.assertEqual(p.x, 1)

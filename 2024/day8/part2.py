@@ -1,20 +1,14 @@
 import itertools
-import re
 
-from aoc_lib import Point2
+from aoc_lib import Grid, Point2
 
-with open("input.txt") as file:
-    grid = [line.strip() for line in file.readlines()]
-
-width = len(grid[0])
-height = len(grid)
+grid = Grid.from_file("input.txt")
 
 antennas: dict[str, list[Point2]] = {}
-for match in re.finditer(r"[^.]", "".join(grid)):
-    ant = match.group(0)
+for x, y, ant in grid.find(r"[^.]"):
     if not ant in antennas:
         antennas[ant] = []
-    antennas[ant].append(Point2(match.start() % width, int(match.start() / height)))
+    antennas[ant].append(Point2(x, y))
 
 nodes: set[Point2] = set()
 for ant, points in antennas.items():
@@ -24,14 +18,14 @@ for ant, points in antennas.items():
         v = diff
         while True:
             p = a + v
-            if p.x < 0 or width <= p.x or p.y < 0 or height <= p.y:
+            if not grid.containsp(p):
                 break
             nodes.add(p)
             v = v + diff
         v = -diff
         while True:
             p = a + v
-            if p.x < 0 or width <= p.x or p.y < 0 or height <= p.y:
+            if not grid.containsp(p):
                 break
             nodes.add(p)
             v = v - diff
