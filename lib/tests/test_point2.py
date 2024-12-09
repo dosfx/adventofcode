@@ -2,8 +2,6 @@ import unittest
 
 from aoc_lib._point2 import Point2
 
-# from aoc_lib import Point2
-
 
 
 class TestPoint2(unittest.TestCase):
