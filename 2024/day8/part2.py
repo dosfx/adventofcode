@@ -1,8 +1,8 @@
 import itertools
 
-from aoc_lib import Grid, Point2
+from aoc_lib import StrGrid, Point2
 
-grid = Grid.from_file("input.txt")
+grid = StrGrid.from_file("input.txt")
 
 antennas: dict[str, list[Point2]] = {}
 for x, y, ant in grid.find(r"[^.]"):

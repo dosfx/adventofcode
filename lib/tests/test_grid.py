@@ -1,20 +1,19 @@
-from operator import concat
 import os
 from unittest import TestCase
 
-from aoc_lib._grid import Grid
+from aoc_lib import IntGrid, StrGrid
 
 
-class TestGrid(TestCase):
+class TestStrGrid(TestCase):
     def setUp(self) -> None:
-        self.grid = Grid(["1234", "2345", "3456"])
+        self.grid = StrGrid(["1234", "2345", "3456"])
 
     def test_grid(self) -> None:
         self.assertEqual(self.grid.width, 4)
         self.assertEqual(self.grid.height, 3)
 
     def test_eq(self) -> None:
-        self.assertEqual(self.grid, Grid(["1234", "2345", "3456"]))
+        self.assertEqual(self.grid, StrGrid(["1234", "2345", "3456"]))
 
     def test_str(self) -> None:
         self.assertEqual(str(self.grid), "1234\n2345\n3456")
@@ -40,7 +39,7 @@ class TestGrid(TestCase):
             self.assertFalse(self.grid.contains(3, 3))
 
     def test_find(self) -> None:
-        self.assertEqual(list(self.grid.find("3")),[
+        self.assertEqual(list(self.grid.find("3")), [
             (2, 0, "3"),
             (1, 1, "3"),
             (0, 2, "3"),
@@ -60,7 +59,7 @@ class TestGrid(TestCase):
         ])
 
     def test_from_lines(self) -> None:
-        grid = Grid.from_lines([
+        grid = StrGrid.from_lines([
             "1234",
             "2345",
             "3456",
@@ -68,7 +67,7 @@ class TestGrid(TestCase):
         self.assertEqual(grid, self.grid)
 
     def test_from_lines_sep(self) -> None:
-        grid = Grid.from_lines([
+        grid = StrGrid.from_lines([
             "1,2,3,4",
             "2,3,4,5",
             "3,4,5,6",
@@ -76,6 +75,56 @@ class TestGrid(TestCase):
         self.assertEqual(grid, self.grid)
 
     def test_from_file(self) -> None:
-        grid = Grid.from_file(os.path.join(
+        grid = StrGrid.from_file(os.path.join(
+            os.path.dirname(__file__), "grid.txt"))
+        self.assertEqual(grid, self.grid)
+
+
+class TestIntGrid(TestCase):
+    def setUp(self) -> None:
+        self.grid = IntGrid([
+            [1, 2, 3, 4],
+            [2, 3, 4, 5],
+            [3, 4, 5, 6],
+        ])
+
+    def test_grid(self) -> None:
+        self.assertEqual(self.grid.width, 4)
+        self.assertEqual(self.grid.height, 3)
+
+    def test_eq(self) -> None:
+        self.assertEqual(self.grid, IntGrid([
+            [1, 2, 3, 4],
+            [2, 3, 4, 5],
+            [3, 4, 5, 6,],
+        ]))
+
+    def test_str(self) -> None:
+        self.assertEqual(str(self.grid), "1234\n2345\n3456")
+
+    def test_at(self) -> None:
+        for y in range(self.grid.height):
+            for x in range(self.grid.width):
+                with self.subTest(f"{x},{y}"):
+                    self.assertEqual(self.grid.at(x, y), x + y + 1)
+
+    def test_from_lines(self) -> None:
+        grid = IntGrid.from_lines([
+            "1234",
+            "2345",
+            "3456",
+        ])
+        self.assertEqual(grid, self.grid)
+
+    def test_from_lines_sep(self) -> None:
+        grid = IntGrid.from_lines([
+            "1,2,3,4",
+            "2,3,4,5",
+            "3,4,5,6",
+        ], ",")
+        self.assertEqual(grid, self.grid)
+
+    def test_from_file(self) -> None:
+        grid = IntGrid.from_file(os.path.join(
             os.path.dirname(__file__), "grid.txt"))
         self.assertEqual(grid, self.grid)
