@@ -35,6 +35,11 @@ class BaseGrid(Generic[T]):
     def atp(self, p: Point2) -> T:
         return self.at(p.x, p.y)
 
+    def at_none(self, x: int, y: int) -> T | None:
+        if not self.contains(x, y):
+            return None
+        return self.at(x, y)
+
     def contains(self, x: int, y: int) -> bool:
         return 0 <= x and x < self.width and 0 <= y and y < self.height
 

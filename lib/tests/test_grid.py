@@ -24,6 +24,10 @@ class TestStrGrid(TestCase):
                 with self.subTest(f"{x},{y}"):
                     self.assertEqual(self.grid.at(x, y), str(x + y + 1))
 
+    def test_at_none(self) -> None:
+        self.assertEqual(self.grid.at_none(0, 0), "1")
+        self.assertIsNone(self.grid.at_none(3,3))
+
     def test_contains(self) -> None:
         with self.subTest("inside"):
             self.assertTrue(self.grid.contains(0, 0))
