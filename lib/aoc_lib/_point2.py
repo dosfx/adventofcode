@@ -8,6 +8,20 @@ class Direction(Enum):
     Down = 2
     Left = 3
 
+    @property
+    def vertical(self) -> bool:
+        return self == Direction.Up or self == Direction.Down
+
+    @property
+    def horizonal(self) -> bool:
+        return self == Direction.Right or self == Direction.Left
+
+    def clock(self) -> "Direction":
+        return Direction((self.value + 1) % 4)
+
+    def counter(self) -> "Direction":
+        return Direction((self.value + 3) % 4)
+
 
 @dataclass(frozen=True)
 class Point2:

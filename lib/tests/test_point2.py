@@ -4,13 +4,37 @@ from aoc_lib._point2 import Direction, Point2
 
 
 class TestDirection(TestCase):
-    def test_loop(self) -> None:
+    def test_direction_loop(self) -> None:
         self.assertEqual([d for d in Direction], [
             Direction.Up,
             Direction.Right,
             Direction.Down,
             Direction.Left,
         ])
+
+    def test_direction_horizontal(self) -> None:
+        self.assertFalse(Direction.Up.horizonal)
+        self.assertTrue(Direction.Right.horizonal)
+        self.assertFalse(Direction.Down.horizonal)
+        self.assertTrue(Direction.Left.horizonal)
+
+    def test_direction_vertical(self) -> None:
+        self.assertTrue(Direction.Up.vertical)
+        self.assertFalse(Direction.Right.vertical)
+        self.assertTrue(Direction.Down.vertical)
+        self.assertFalse(Direction.Left.vertical)
+
+    def test_direction_clock(self) -> None:
+        self.assertEqual(Direction.Up.clock(), Direction.Right)
+        self.assertEqual(Direction.Right.clock(), Direction.Down)
+        self.assertEqual(Direction.Down.clock(), Direction.Left)
+        self.assertEqual(Direction.Left.clock(), Direction.Up)
+
+    def test_direction_counter(self) -> None:
+        self.assertEqual(Direction.Up.counter(), Direction.Left)
+        self.assertEqual(Direction.Right.counter(), Direction.Up)
+        self.assertEqual(Direction.Down.counter(), Direction.Right)
+        self.assertEqual(Direction.Left.counter(), Direction.Down)
 
 
 class TestPoint2(TestCase):
