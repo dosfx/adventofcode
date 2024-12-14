@@ -72,3 +72,15 @@ class TestVector2(TestCase):
         self.assertEqual(DOWN.counter, RIGHT)
         self.assertEqual(RIGHT.counter, UP)
         self.assertEqual(Vector2(1, 2).counter, Vector2(2, -1))
+
+    def test_vector2_mod(self) -> None:
+        self.assertEqual(Vector2(1, 2).mod(3), Vector2(1, 2))
+        self.assertEqual(Vector2(7, 8).mod(4), Vector2(3, 0))
+        self.assertEqual(Vector2(-1, -2).mod(3), Vector2(2, 1))
+        self.assertEqual(Vector2(-7, -8).mod(4), Vector2(1, 0))
+
+    def test_vector2_mod2(self) -> None:
+        self.assertEqual(Vector2(1, 2).mod2(3, 4), Vector2(1, 2))
+        self.assertEqual(Vector2(7, 8).mod2(4, 5), Vector2(3, 3))
+        self.assertEqual(Vector2(-1, -2).mod2(3, 4), Vector2(2, 2))
+        self.assertEqual(Vector2(-7, -8).mod2(4, 5), Vector2(1, 2))

@@ -35,6 +35,12 @@ class Vector2:
     def counter(self) -> "Vector2":
         return Vector2(self.y, -self.x)
 
+    def mod(self, mod: int) -> "Vector2":
+        return self.mod2(mod, mod)
+
+    def mod2(self, mx: int, my: int) -> "Vector2":
+        return Vector2(self.x % mx, self.y % my)
+
 
 UP = Vector2(0, -1)
 RIGHT = Vector2(1, 0)
