@@ -1,16 +1,16 @@
 import itertools
 
-from aoc_lib import StrGrid, Point2
+from aoc_lib import StrGrid, Vector2
 
 grid = StrGrid.from_file("input.txt")
 
-antennas: dict[str, list[Point2]] = {}
+antennas: dict[str, list[Vector2]] = {}
 for x, y, ant in grid.find(r"[^.]"):
     if not ant in antennas:
         antennas[ant] = []
-    antennas[ant].append(Point2(x, y))
+    antennas[ant].append(Vector2(x, y))
 
-nodes: set[Point2] = set()
+nodes: set[Vector2] = set()
 for ant, points in antennas.items():
     for (a, b) in itertools.combinations(points, 2):
         diff = b - a

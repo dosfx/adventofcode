@@ -1,10 +1,10 @@
 import re
 from typing import cast
 
-from aoc_lib import Point2
+from aoc_lib import Vector2
 
 
-def solve(p1: Point2, p2: Point2, prize: Point2) -> int:
+def solve(p1: Vector2, p2: Vector2, prize: Vector2) -> int:
     # do some algebra
     # a.x1 + b.x2 = px  80.94 + 40.22   7520 + 880   8400
     # a.y1 + b.y2 = py  80.34 + 40.67   2720 + 2680  5400
@@ -31,13 +31,13 @@ with open("input.txt") as file:
         m = re.match(r"Button A: X\+(\d+), Y\+(\d+)", file.readline())
         if m is None:
             break
-        but_a = Point2(int(m.group(1)), int(m.group(2)))
+        but_a = Vector2(int(m.group(1)), int(m.group(2)))
         m = cast(re.Match[str], re.match(
             r"Button B: X\+(\d+), Y\+(\d+)", file.readline()))
-        but_b = Point2(int(m.group(1)), int(m.group(2)))
+        but_b = Vector2(int(m.group(1)), int(m.group(2)))
         m = cast(re.Match[str], re.match(
             r"Prize: X=(\d+), Y=(\d+)", file.readline()))
-        prize = Point2(int(m.group(1)), int(m.group(2)))
+        prize = Vector2(int(m.group(1)), int(m.group(2)))
         file.readline()
         total += solve(but_a, but_b, prize)
 print(total)

@@ -1,9 +1,9 @@
-from aoc_lib import Direction, Point2, StrGrid
+from aoc_lib import Direction, Vector2, StrGrid
 
 grid = StrGrid.from_file("input.txt")
 
 
-def fill(id: str, p: Point2, cur: set[Point2]) -> None:
+def fill(id: str, p: Vector2, cur: set[Vector2]) -> None:
     if p in cur:
         return
     if grid.atp_none(p) != id:
@@ -13,12 +13,12 @@ def fill(id: str, p: Point2, cur: set[Point2]) -> None:
         fill(id, p.shift(d), cur)
 
 total = 0
-visited: set[Point2] = set()
+visited: set[Vector2] = set()
 for x, y, cell in grid.cells():
-    p = Point2(x, y)
+    p = Vector2(x, y)
     if p in visited:
         continue
-    region: set[Point2] = set()
+    region: set[Vector2] = set()
     fill(cell, p, region)
     visited = visited.union(region)
 

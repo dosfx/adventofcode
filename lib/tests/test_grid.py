@@ -1,7 +1,7 @@
 import os
 from unittest import TestCase
 
-from aoc_lib import IntGrid, Point2, StrGrid
+from aoc_lib import IntGrid, Vector2, StrGrid
 
 
 class TestStrGrid(TestCase):
@@ -29,15 +29,15 @@ class TestStrGrid(TestCase):
             for x in range(self.grid.width):
                 with self.subTest(f"{x},{y}"):
                     self.assertEqual(self.grid.atp(
-                        Point2(x, y)), str(x + y + 1))
+                        Vector2(x, y)), str(x + y + 1))
 
     def test_at_none(self) -> None:
         self.assertEqual(self.grid.at_none(0, 0), "1")
         self.assertIsNone(self.grid.at_none(3, 3))
 
     def test_atp_none(self) -> None:
-        self.assertEqual(self.grid.atp_none(Point2(0, 0)), "1")
-        self.assertIsNone(self.grid.atp_none(Point2(3, 3)))
+        self.assertEqual(self.grid.atp_none(Vector2(0, 0)), "1")
+        self.assertIsNone(self.grid.atp_none(Vector2(3, 3)))
 
     def test_contains(self) -> None:
         with self.subTest("inside"):

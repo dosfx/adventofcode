@@ -1,9 +1,9 @@
 from ._grid import IntGrid, StrGrid
-from ._point2 import Direction, Point2
+from ._vector2 import Direction, Vector2
 
 __all__ = [
     "Direction",
     "IntGrid",
-    "Point2",
     "StrGrid",
+    "Vector2",
 ]

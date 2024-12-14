@@ -1,7 +1,7 @@
 import re
 from typing import Generator, Generic, Iterable, TypeVar
 
-from aoc_lib._point2 import Point2
+from aoc_lib._vector2 import Vector2
 
 T = TypeVar("T", int, str)
 
@@ -32,7 +32,7 @@ class BaseGrid(Generic[T]):
     def at(self, x: int, y: int) -> T:
         return self._data[y][x]
 
-    def atp(self, p: Point2) -> T:
+    def atp(self, p: Vector2) -> T:
         return self.at(p.x, p.y)
 
     def at_none(self, x: int, y: int) -> T | None:
@@ -40,13 +40,13 @@ class BaseGrid(Generic[T]):
             return None
         return self.at(x, y)
 
-    def atp_none(self, p: Point2) -> T | None:
+    def atp_none(self, p: Vector2) -> T | None:
         return self.at_none(p.x, p.y)
 
     def contains(self, x: int, y: int) -> bool:
         return 0 <= x and x < self.width and 0 <= y and y < self.height
 
-    def containsp(self, p: Point2) -> bool:
+    def containsp(self, p: Vector2) -> bool:
         return self.contains(p.x, p.y)
 
     def rows(self) -> Generator[tuple[int, tuple[T, ...]], None, None]:

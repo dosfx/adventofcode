@@ -1,9 +1,9 @@
-from aoc_lib import Direction, Point2, StrGrid
+from aoc_lib import Direction, Vector2, StrGrid
 
 grid = StrGrid.from_file("input.txt")
 
 
-def fill(id: str, p: Point2, cur: set[Point2]) -> None:
+def fill(id: str, p: Vector2, cur: set[Vector2]) -> None:
     if p in cur:
         return
     if grid.atp_none(p) != id:
@@ -13,7 +13,7 @@ def fill(id: str, p: Point2, cur: set[Point2]) -> None:
         fill(id, p.shift(d), cur)
 
 
-def edge_walk(region: set[Point2], start: Point2, side: Direction) -> set[Point2]:
+def edge_walk(region: set[Vector2], start: Vector2, side: Direction) -> set[Vector2]:
     edge = {start}
     for check_dir in [side.clock(), side.counter()]:
         check = start.shift(check_dir)
@@ -24,17 +24,17 @@ def edge_walk(region: set[Point2], start: Point2, side: Direction) -> set[Point2
 
 
 total = 0
-visited: set[Point2] = set()
+visited: set[Vector2] = set()
 for x, y, cell in grid.cells():
-    p = Point2(x, y)
+    p = Vector2(x, y)
     if p in visited:
         continue
-    region: set[Point2] = set()
+    region: set[Vector2] = set()
     fill(cell, p, region)
     visited = visited.union(region)
 
     edges = 0
-    used: dict[Direction, set[Point2]] = {d: set() for d in Direction}
+    used: dict[Direction, set[Vector2]] = {d: set() for d in Direction}
     for p in region:
         for d in Direction:
             if not p.shift(d) in region:

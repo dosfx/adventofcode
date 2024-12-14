@@ -24,23 +24,23 @@ class Direction(Enum):
 
 
 @dataclass(frozen=True)
-class Point2:
+class Vector2:
     x: int
     y: int
 
-    def __add__(self, other: "Point2") -> "Point2":
-        return Point2(self.x + other.x, self.y + other.y)
+    def __add__(self, other: "Vector2") -> "Vector2":
+        return Vector2(self.x + other.x, self.y + other.y)
 
-    def __neg__(self) -> "Point2":
-        return Point2(-self.x, -self.y)
+    def __neg__(self) -> "Vector2":
+        return Vector2(-self.x, -self.y)
 
-    def __sub__(self, other: "Point2") -> "Point2":
-        return Point2(self.x - other.x, self.y - other.y)
+    def __sub__(self, other: "Vector2") -> "Vector2":
+        return Vector2(self.x - other.x, self.y - other.y)
 
-    def __mul__(self, scale: int) -> "Point2":
-        return Point2(self.x * scale, self.y * scale)
+    def __mul__(self, scale: int) -> "Vector2":
+        return Vector2(self.x * scale, self.y * scale)
 
-    def shift(self, direction: Direction) -> "Point2":
+    def shift(self, direction: Direction) -> "Vector2":
         match direction:
             case Direction.Up:
                 return self.up()
@@ -51,14 +51,14 @@ class Point2:
             case Direction.Left:
                 return self.left()
 
-    def up(self) -> "Point2":
-        return Point2(self.x, self.y - 1)
+    def up(self) -> "Vector2":
+        return Vector2(self.x, self.y - 1)
 
-    def right(self) -> "Point2":
-        return Point2(self.x + 1, self.y)
+    def right(self) -> "Vector2":
+        return Vector2(self.x + 1, self.y)
 
-    def down(self) -> "Point2":
-        return Point2(self.x, self.y + 1)
+    def down(self) -> "Vector2":
+        return Vector2(self.x, self.y + 1)
 
-    def left(self) -> "Point2":
-        return Point2(self.x - 1, self.y)
+    def left(self) -> "Vector2":
+        return Vector2(self.x - 1, self.y)
