@@ -1,4 +1,4 @@
-from aoc_lib import Direction, Vector2, StrGrid
+from aoc_lib import directions, Vector2, StrGrid
 
 grid = StrGrid.from_file("input.txt")
 
@@ -9,17 +9,17 @@ def fill(id: str, p: Vector2, cur: set[Vector2]) -> None:
     if grid.atp_none(p) != id:
         return
     cur.add(p)
-    for d in Direction:
-        fill(id, p.shift(d), cur)
+    for d in directions:
+        fill(id, p + d, cur)
 
 
-def edge_walk(region: set[Vector2], start: Vector2, side: Direction) -> set[Vector2]:
+def edge_walk(region: set[Vector2], start: Vector2, side: Vector2) -> set[Vector2]:
     edge = {start}
-    for check_dir in [side.clock(), side.counter()]:
-        check = start.shift(check_dir)
-        while check in region and check.shift(side) not in region:
+    for check_dir in [side.clock, side.counter]:
+        check = start + check_dir
+        while check in region and (check + side) not in region:
             edge.add(check)
-            check = check.shift(check_dir)
+            check = check + check_dir
     return edge
 
 
@@ -34,10 +34,10 @@ for x, y, cell in grid.cells():
     visited = visited.union(region)
 
     edges = 0
-    used: dict[Direction, set[Vector2]] = {d: set() for d in Direction}
+    used: dict[Vector2, set[Vector2]] = {d: set() for d in directions}
     for p in region:
-        for d in Direction:
-            if not p.shift(d) in region:
+        for d in directions:
+            if not (p + d) in region:
                 # found an edge
                 if p not in used[d]:
                     edges += 1
@@ -45,8 +45,3 @@ for x, y, cell in grid.cells():
 
     total += len(region) * edges
 print(total)
-
-# RRRR
-# RRRR
-#   RRR
-#   R

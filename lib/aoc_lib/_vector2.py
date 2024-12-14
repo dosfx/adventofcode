@@ -1,26 +1,5 @@
 from dataclasses import dataclass
-from enum import Enum
-
-
-class Direction(Enum):
-    Up = 0
-    Right = 1
-    Down = 2
-    Left = 3
-
-    @property
-    def vertical(self) -> bool:
-        return self == Direction.Up or self == Direction.Down
-
-    @property
-    def horizonal(self) -> bool:
-        return self == Direction.Right or self == Direction.Left
-
-    def clock(self) -> "Direction":
-        return Direction((self.value + 1) % 4)
-
-    def counter(self) -> "Direction":
-        return Direction((self.value + 3) % 4)
+from typing import Generator, Iterator
 
 
 @dataclass(frozen=True)
@@ -40,25 +19,26 @@ class Vector2:
     def __mul__(self, scale: int) -> "Vector2":
         return Vector2(self.x * scale, self.y * scale)
 
-    def shift(self, direction: Direction) -> "Vector2":
-        match direction:
-            case Direction.Up:
-                return self.up()
-            case Direction.Right:
-                return self.right()
-            case Direction.Down:
-                return self.down()
-            case Direction.Left:
-                return self.left()
+    @property
+    def vertical(self) -> bool:
+        return self.x == 0 and self.y != 0
 
-    def up(self) -> "Vector2":
-        return Vector2(self.x, self.y - 1)
+    @property
+    def horizonal(self) -> bool:
+        return self.x != 0 and self.y == 0
 
-    def right(self) -> "Vector2":
-        return Vector2(self.x + 1, self.y)
+    @property
+    def clock(self) -> "Vector2":
+        return Vector2(-self.y, self.x)
 
-    def down(self) -> "Vector2":
-        return Vector2(self.x, self.y + 1)
+    @property
+    def counter(self) -> "Vector2":
+        return Vector2(self.y, -self.x)
 
-    def left(self) -> "Vector2":
-        return Vector2(self.x - 1, self.y)
+
+UP = Vector2(0, -1)
+RIGHT = Vector2(1, 0)
+DOWN = Vector2(0, 1)
+LEFT = Vector2(-1, 0)
+
+directions = (UP, RIGHT, DOWN, LEFT)

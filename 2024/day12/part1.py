@@ -1,16 +1,17 @@
-from aoc_lib import Direction, Vector2, StrGrid
+from aoc_lib import directions, Vector2, StrGrid
 
 grid = StrGrid.from_file("input.txt")
 
 
-def fill(id: str, p: Vector2, cur: set[Vector2]) -> None:
-    if p in cur:
+def fill(id: str, v: Vector2, cur: set[Vector2]) -> None:
+    if v in cur:
         return
-    if grid.atp_none(p) != id:
+    if grid.atp_none(v) != id:
         return
-    cur.add(p)
-    for d in Direction:
-        fill(id, p.shift(d), cur)
+    cur.add(v)
+    for d in directions:
+        fill(id, v + d, cur)
+
 
 total = 0
 visited: set[Vector2] = set()
@@ -24,8 +25,8 @@ for x, y, cell in grid.cells():
 
     perimeter = 0
     for p in region:
-        for d in Direction:
-            if not p.shift(d) in region:
+        for d in directions:
+            if not (p + d) in region:
                 perimeter += 1
     total += len(region) * perimeter
 print(total)
