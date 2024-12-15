@@ -53,6 +53,27 @@ class TestStrGrid(TestCase):
             self.assertFalse(self.grid.contains(4, 2))
             self.assertFalse(self.grid.contains(3, 3))
 
+    def test_set(self) -> None:
+        self.assertEqual(self.grid.at(2, 2), "5")
+        self.grid.set(2, 2, "S")
+        self.assertEqual(self.grid.at(2, 2), "S")
+
+    def test_setp(self) -> None:
+        self.assertEqual(self.grid.at(2, 2), "5")
+        self.grid.setp(Vector2(2, 2), "S")
+        self.assertEqual(self.grid.at(2, 2), "S")
+
+    def test_swap(self) -> None:
+        self.grid.swap(0, 0, 0, 2)
+        self.grid.swap(3, 0, 3, 2)
+        self.assertEqual(self.grid, StrGrid(("3236", "2345", "1454")))
+
+
+    def test_swapp(self) -> None:
+        self.grid.swapp(Vector2(0, 0), Vector2(0, 2))
+        self.grid.swapp(Vector2(3, 0), Vector2(3, 2))
+        self.assertEqual(self.grid, StrGrid(("3236", "2345", "1454")))
+
     def test_find(self) -> None:
         self.assertEqual(list(self.grid.find("3")), [
             (2, 0, "3"),
@@ -62,7 +83,7 @@ class TestStrGrid(TestCase):
 
     def test_rows(self) -> None:
         self.assertEqual(list(self.grid.rows()), [
-            (y, tuple([str(y + i) for i in range(1, 5)]))
+            (y, [str(y + i) for i in range(1, 5)])
             for y in range(3)
         ])
 

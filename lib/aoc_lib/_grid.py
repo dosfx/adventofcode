@@ -1,5 +1,5 @@
 import re
-from typing import Generator, Generic, Iterable, TypeVar
+from typing import Any, Generator, Generic, Iterable, TypeVar, cast, overload
 
 from aoc_lib._vector2 import Vector2
 
@@ -8,10 +8,10 @@ T = TypeVar("T", int, str)
 
 class BaseGrid(Generic[T]):
     def __init__(self, data: Iterable[Iterable[T]]) -> None:
-        self._data: tuple[tuple[T, ...], ...] = tuple([
-            tuple([cell for cell in row])
+        self._data: list[list[T]] = [
+            [cell for cell in row]
             for row in data
-        ])
+        ]
         self._width = len(self._data[0])
         self._height = len(self._data)
 
@@ -49,7 +49,21 @@ class BaseGrid(Generic[T]):
     def containsp(self, p: Vector2) -> bool:
         return self.contains(p.x, p.y)
 
-    def rows(self) -> Generator[tuple[int, tuple[T, ...]], None, None]:
+    def set(self, x: int, y: int, v: T) -> None:
+        self._data[y][x] = v
+
+    def setp(self, p: Vector2, v: T) -> None:
+        self.set(p.x, p.y, v)
+
+    def swap(self, x1: int, y1: int, x2: int, y2: int) -> None:
+        temp = self.at(x1, y1)
+        self.set(x1, y1, self.at(x2, y2))
+        self.set(x2, y2, temp)
+
+    def swapp(self, p1: Vector2, p2: Vector2) -> None:
+        self.swap(p1.x, p1.y, p2.x, p2.y)
+
+    def rows(self) -> Generator[tuple[int, list[T]], None, None]:
         for y, row in enumerate(self._data):
             yield (y, row)
 
