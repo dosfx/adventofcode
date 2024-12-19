@@ -1,11 +1,11 @@
 from unittest import TestCase
 
-from aoc_lib import DOWN, LEFT, RIGHT, UP, directions, Vector2
+from aoc_lib import DOWN, LEFT, RIGHT, UP, DIRECTIONS, Vector2
 
 
 class TestDirection(TestCase):
     def test_direction_loop(self) -> None:
-        self.assertEqual([d for d in directions], [
+        self.assertEqual([d for d in DIRECTIONS], [
             UP,
             RIGHT,
             DOWN,

@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from queue import PriorityQueue
-from aoc_lib import directions, StrGrid, Vector2, RIGHT
+from aoc_lib import DIRECTIONS, StrGrid, Vector2, RIGHT
 
 
 grid = StrGrid.from_file("input.txt")
@@ -21,7 +21,7 @@ best = 99999999
 paths: set[Vector2] = set()
 costs: dict[tuple[Vector2, Vector2], int] = {}
 queue = PriorityQueue[QueueItem]()
-for d in directions:
+for d in DIRECTIONS:
     queue.put(QueueItem(0, end, d, set([end])))
 while not queue.empty():
     item = queue.get()

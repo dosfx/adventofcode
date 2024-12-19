@@ -72,6 +72,10 @@ class BaseGrid(Generic[T]):
             for x, cell in enumerate(row):
                 yield (x, y, cell)
 
+    @staticmethod
+    def from_size(width: int, height: int, fill: T) -> "BaseGrid[T]":
+        return BaseGrid[T]([[fill for _ in range(width)] for _ in range(height)])
+
 
 class StrGrid(BaseGrid[str]):
     def find(self, pattern: str) -> Generator[tuple[int, int, str], None, None]:

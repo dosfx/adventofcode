@@ -1,4 +1,4 @@
-from aoc_lib import directions, Vector2, StrGrid
+from aoc_lib import DIRECTIONS, Vector2, StrGrid
 
 grid = StrGrid.from_file("input.txt")
 
@@ -9,7 +9,7 @@ def fill(id: str, p: Vector2, cur: set[Vector2]) -> None:
     if grid.atp_none(p) != id:
         return
     cur.add(p)
-    for d in directions:
+    for d in DIRECTIONS:
         fill(id, p + d, cur)
 
 
@@ -34,9 +34,9 @@ for x, y, cell in grid.cells():
     visited = visited.union(region)
 
     edges = 0
-    used: dict[Vector2, set[Vector2]] = {d: set() for d in directions}
+    used: dict[Vector2, set[Vector2]] = {d: set() for d in DIRECTIONS}
     for p in region:
-        for d in directions:
+        for d in DIRECTIONS:
             if not (p + d) in region:
                 # found an edge
                 if p not in used[d]:

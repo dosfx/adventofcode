@@ -47,4 +47,4 @@ RIGHT = Vector2(1, 0)
 DOWN = Vector2(0, 1)
 LEFT = Vector2(-1, 0)
 
-directions = (UP, RIGHT, DOWN, LEFT)
+DIRECTIONS = (UP, RIGHT, DOWN, LEFT)

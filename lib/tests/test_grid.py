@@ -68,7 +68,6 @@ class TestStrGrid(TestCase):
         self.grid.swap(3, 0, 3, 2)
         self.assertEqual(self.grid, StrGrid(("3236", "2345", "1454")))
 
-
     def test_swapp(self) -> None:
         self.grid.swapp(Vector2(0, 0), Vector2(0, 2))
         self.grid.swapp(Vector2(3, 0), Vector2(3, 2))
@@ -114,6 +113,9 @@ class TestStrGrid(TestCase):
         grid = StrGrid.from_file(os.path.join(
             os.path.dirname(__file__), "grid.txt"))
         self.assertEqual(grid, self.grid)
+
+    def test_from_size(self) -> None:
+        self.assertEqual(StrGrid.from_size(4, 5, "."), StrGrid(["...."] * 5))
 
 
 class TestIntGrid(TestCase):

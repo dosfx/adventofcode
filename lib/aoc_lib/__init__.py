@@ -1,8 +1,8 @@
 from ._grid import IntGrid, StrGrid
-from ._vector2 import directions, Vector2, UP, LEFT, DOWN, RIGHT
+from ._vector2 import DIRECTIONS, Vector2, UP, LEFT, DOWN, RIGHT
 
 __all__ = [
-    "directions",
+    "DIRECTIONS",
     "IntGrid",
     "StrGrid",
     "Vector2",
