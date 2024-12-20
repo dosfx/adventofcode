@@ -35,6 +35,10 @@ class Vector2:
     def counter(self) -> "Vector2":
         return Vector2(self.y, -self.x)
 
+    def directions(self) -> Generator["Vector2", None, None]:
+        for d in DIRECTIONS:
+            yield self + d
+
     def mod(self, mod: int) -> "Vector2":
         return self.mod2(mod, mod)
 

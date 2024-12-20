@@ -73,6 +73,14 @@ class TestVector2(TestCase):
         self.assertEqual(RIGHT.counter, UP)
         self.assertEqual(Vector2(1, 2).counter, Vector2(2, -1))
 
+    def test_vector2_directions(self) -> None:
+        self.assertEqual(list(Vector2(1, 2).directions()), [
+            Vector2(1, 1),
+            Vector2(2, 2),
+            Vector2(1, 3),
+            Vector2(0, 2),
+        ])
+
     def test_vector2_mod(self) -> None:
         self.assertEqual(Vector2(1, 2).mod(3), Vector2(1, 2))
         self.assertEqual(Vector2(7, 8).mod(4), Vector2(3, 0))
