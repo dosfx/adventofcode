@@ -15,7 +15,7 @@ move_table = {
     "<": LEFT,
 }
 
-cur = [Vector2(x, y) for x, y, _ in grid.find("@")][0]
+cur = [Vector2(x, y) for x, y, _ in grid.findr("@")][0]
 for m in moves:
     # print(grid, m)
     direction = move_table[m]
@@ -44,6 +44,6 @@ for m in moves:
         break
 
 total = 0
-for x, y, _ in grid.find("O"):
+for x, y, _ in grid.findr("O"):
     total += x + (100 * y)
 print(total)

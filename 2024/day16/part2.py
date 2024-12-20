@@ -5,8 +5,8 @@ from aoc_lib import DIRECTIONS, StrGrid, Vector2, RIGHT
 
 grid = StrGrid.from_file("input.txt")
 
-start = [Vector2(x, y) for x, y, _ in grid.find("S")][0]
-end = [Vector2(x, y) for x, y, _ in grid.find("E")][0]
+start = [Vector2(x, y) for x, y, _ in grid.findr("S")][0]
+end = [Vector2(x, y) for x, y, _ in grid.findr("E")][0]
 
 
 @dataclass(order=True)

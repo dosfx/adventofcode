@@ -45,7 +45,7 @@ def push(p: Vector2, d: Vector2, swap: bool = True) -> bool:
     return True
 
 
-cur = [Vector2(x, y) for x, y, _ in grid.find("@")][0]
+cur = [Vector2(x, y) for x, y, _ in grid.findr("@")][0]
 for m in moves:
     direction = move_table[m]
     nextp = cur + direction
@@ -62,6 +62,6 @@ for m in moves:
         cur = nextp
 
 total = 0
-for x, y, _ in grid.find(r"\["):
+for x, y, _ in grid.findr(r"\["):
     total += x + (100 * y)
 print(total)

@@ -72,13 +72,22 @@ class BaseGrid(Generic[T]):
             for x, cell in enumerate(row):
                 yield (x, y, cell)
 
+    def find(self, target: T) -> Generator[tuple[int, int], None, None]:
+        for x, y, cell in self.cells():
+            if cell == target:
+                yield (x, y)
+
+    def findp(self, target: T) -> Generator[Vector2, None, None]:
+        for x, y in self.find(target):
+            yield Vector2(x, y)
+
     @staticmethod
     def from_size(width: int, height: int, fill: T) -> "BaseGrid[T]":
         return BaseGrid[T]([[fill for _ in range(width)] for _ in range(height)])
 
 
 class StrGrid(BaseGrid[str]):
-    def find(self, pattern: str) -> Generator[tuple[int, int, str], None, None]:
+    def findr(self, pattern: str) -> Generator[tuple[int, int, str], None, None]:
         re_pattern = re.compile(pattern)
         for x, y, cell in self.cells():
             if re.match(re_pattern, cell):
@@ -100,11 +109,6 @@ class StrGrid(BaseGrid[str]):
 
 
 class IntGrid(BaseGrid[int]):
-    def find(self, num: int) -> Generator[tuple[int, int, int], None, None]:
-        for x, y, cell in self.cells():
-            if cell == num:
-                yield (x, y, cell)
-
     @staticmethod
     def from_str(grid: StrGrid) -> "IntGrid":
         return IntGrid([

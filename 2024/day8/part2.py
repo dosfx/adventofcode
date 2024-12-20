@@ -5,7 +5,7 @@ from aoc_lib import StrGrid, Vector2
 grid = StrGrid.from_file("input.txt")
 
 antennas: dict[str, list[Vector2]] = {}
-for x, y, ant in grid.find(r"[^.]"):
+for x, y, ant in grid.findr(r"[^.]"):
     if not ant in antennas:
         antennas[ant] = []
     antennas[ant].append(Vector2(x, y))

@@ -75,6 +75,20 @@ class TestStrGrid(TestCase):
 
     def test_find(self) -> None:
         self.assertEqual(list(self.grid.find("3")), [
+            (2, 0),
+            (1, 1),
+            (0, 2),
+        ])
+
+    def test_findp(self) -> None:
+        self.assertEqual(list(self.grid.findp("3")), [
+            Vector2(2, 0),
+            Vector2(1, 1),
+            Vector2(0, 2),
+        ])
+
+    def test_findr(self) -> None:
+        self.assertEqual(list(self.grid.findr("3")), [
             (2, 0, "3"),
             (1, 1, "3"),
             (0, 2, "3"),
