@@ -72,6 +72,10 @@ class BaseGrid(Generic[T]):
             for x, cell in enumerate(row):
                 yield (x, y, cell)
 
+    def cellsp(self) -> Generator[tuple[Vector2, T], None, None]:
+        for x, y, c in self.cells():
+            yield (Vector2(x, y), c)
+
     def find(self, target: T) -> Generator[tuple[int, int], None, None]:
         for x, y, cell in self.cells():
             if cell == target:

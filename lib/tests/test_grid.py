@@ -107,6 +107,13 @@ class TestStrGrid(TestCase):
             for x in range(4)
         ])
 
+    def test_cellsp(self) -> None:
+        self.assertEqual(list(self.grid.cellsp()), [
+            (Vector2(x, y), str(x + y + 1))
+            for y in range(3)
+            for x in range(4)
+        ])
+
     def test_from_lines(self) -> None:
         grid = StrGrid.from_lines([
             "1234",
