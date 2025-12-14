@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from typing import Generator, Iterator
-
+from math import sqrt
+from typing import Generator
 
 @dataclass(frozen=True)
 class Vector2:
@@ -39,12 +39,30 @@ class Vector2:
         for d in DIRECTIONS:
             yield self + d
 
+    def dist(self, other: "Vector2") -> float:
+        return sqrt(self.dist2(other))
+
+    def dist2(self, other: "Vector2") -> int:
+        return self.__sub__(other).len2()
+
+    def len(self) -> float:
+        return sqrt(self.len2())
+
+    def len2(self) -> int:
+        return (self.x * self.x) + (self.y * self.y)
+
     def mod(self, mod: int) -> "Vector2":
         return self.mod2(mod, mod)
 
     def mod2(self, mx: int, my: int) -> "Vector2":
         return Vector2(self.x % mx, self.y % my)
 
+    def norm(self) -> "Vector2":
+        length = self.len()
+        return Vector2(int(self.x / length), int(self.y / length))
+
+UNIT = Vector2(1, 1)
+ZERO = Vector2(0, 0)
 
 UP = Vector2(0, -1)
 RIGHT = Vector2(1, 0)

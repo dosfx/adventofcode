@@ -1,3 +1,4 @@
+from math import sqrt
 from unittest import TestCase
 
 from aoc_lib import DOWN, LEFT, RIGHT, UP, DIRECTIONS, Vector2
@@ -80,6 +81,18 @@ class TestVector2(TestCase):
             Vector2(1, 3),
             Vector2(0, 2),
         ])
+
+    def test_vector3_dist(self) -> None:
+        self.assertEqual(Vector2(1, 2).dist(Vector2(4, 6)), 5)
+
+    def test_vector3_dist2(self) -> None:
+        self.assertEqual(Vector2(1, 2).dist2(Vector2(4, 6)), 25)
+
+    def test_vector3_len(self) -> None:
+        self.assertEqual(Vector2(3, 4).len(), 5)
+
+    def test_vector3_len2(self) -> None:
+        self.assertEqual(Vector2(3, 4).len2(), 25)
 
     def test_vector2_mod(self) -> None:
         self.assertEqual(Vector2(1, 2).mod(3), Vector2(1, 2))
