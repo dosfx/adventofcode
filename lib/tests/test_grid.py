@@ -53,6 +53,20 @@ class TestStrGrid(TestCase):
             self.assertFalse(self.grid.contains(4, 2))
             self.assertFalse(self.grid.contains(3, 3))
 
+    def test_containsp(self) -> None:
+        with self.subTest("inside"):
+            self.assertTrue(self.grid.containsp(Vector2(0, 0)))
+            self.assertTrue(self.grid.containsp(Vector2(2, 2)))
+            self.assertTrue(self.grid.containsp(Vector2(3, 2)))
+        with self.subTest("outside"):
+            self.assertFalse(self.grid.containsp(Vector2(-1, -1)))
+            self.assertFalse(self.grid.containsp(Vector2(0, -1)))
+            self.assertFalse(self.grid.containsp(Vector2(-1, 0)))
+            self.assertFalse(self.grid.containsp(Vector2(-1, -1)))
+            self.assertFalse(self.grid.containsp(Vector2(5, 5)))
+            self.assertFalse(self.grid.containsp(Vector2(4, 2)))
+            self.assertFalse(self.grid.containsp(Vector2(3, 3)))
+
     def test_set(self) -> None:
         self.assertEqual(self.grid.at(2, 2), "5")
         self.grid.set(2, 2, "S")
