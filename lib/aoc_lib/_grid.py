@@ -85,9 +85,9 @@ class BaseGrid(Generic[T]):
         for x, y in self.find(target):
             yield Vector2(x, y)
 
-    @staticmethod
-    def from_size(width: int, height: int, fill: T) -> "BaseGrid[T]":
-        return BaseGrid[T]([[fill for _ in range(width)] for _ in range(height)])
+    @classmethod
+    def from_size[TParent: BaseGrid](cls: type[TParent], width: int, height: int, fill: T) -> TParent:
+        return cls([[fill for _ in range(width)] for _ in range(height)])
 
 
 class StrGrid(BaseGrid[str]):
